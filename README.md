@@ -10,6 +10,7 @@ Employee API definition can be found [here](src/main/resources/static/swagger.ym
 
 Please, copy and paste the definition on [Swagger Editor](https://editor.swagger.io/) for better visualization.
 
+Note: a good way to improve the reliability of `swagger.yml` is to use `swagger-codegen-maven-plugin` which is a code generator.
 
 ## docker-compose: how to run
 

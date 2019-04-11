@@ -3,6 +3,9 @@ info:
   description: "Details about the `employee` REST API"
   version: "1.0.0"
   title: "Employee REST Service"
+host: "localhost:8080"
+schemes:
+  - http
 tags:
   - name: "employees"
 consumes:
@@ -32,13 +35,32 @@ paths:
       tags:
         - "employees"
       summary: "Finds all active employees"
+      parameters:
+        - name: "page"
+          in: "query"
+          description: "current page - starting from 0"
+          required: false
+          type: "integer"
+          format: "int32"
+        - name: "size"
+          in: "query"
+          description: "number of elements on each page"
+          required: false
+          type: "integer"
+          format: "int32"
+        - name: "sort"
+          in: "query"
+          description: "number of elements (e.g. 'id,desc')"
+          required: false
+          type: "array"
+          items:
+            type: "string"
+          collectionFormat: "multi"
       responses:
         200:
           description: "OK"
           schema:
-            type: "array"
-            items:
-              $ref: "#/definitions/EmployeeResponse"
+            $ref: "#/definitions/EmployeePageableResponse"
 
   /api/v1/employees/{id}:
     get:
@@ -46,12 +68,12 @@ paths:
         - "employees"
       summary: "Finds an active employee by its id"
       parameters:
-      - name: "id"
-        in: "path"
-        description: "Id of employee to return"
-        required: true
-        type: "integer"
-        format: "int64"
+        - name: "id"
+          in: "path"
+          description: "Id of employee to return"
+          required: true
+          type: "integer"
+          format: "int64"
       responses:
         200:
           description: "Employee found"
@@ -178,6 +200,57 @@ definitions:
         enum:
         - "ACTIVE"
         - "INACTIVE"
+
+  EmployeePageableResponse:
+    type: "object"
+    properties:
+      content:
+        type: "array"
+        items: 
+          $ref: "#/definitions/EmployeeResponse"
+      pageable:
+        type: "object"
+        properties:
+          offset:
+            type: "integer"
+            format: "int64"
+          pageNumber:
+            description: "current page"
+            type: "integer"
+            format: "int32"
+          pageSize:
+            type: "integer"
+            format: "int32"
+          sort:
+            type: "object"
+            properties:
+              sorted:
+                type: "boolean"
+      totalElements:
+        description: "total number of elements"
+        type: "integer"
+        format: "int64"
+      totalPages:
+        description: "total number of pages"
+        type: "integer"
+        format: "int64"
+      last:
+        description: "whether it is the last page"
+        type: "boolean"
+      first:
+        description: "whether it is the first page"
+        type: "boolean"
+      empty:
+        description: "whether 'content' is empty"
+        type: "boolean"
+      size:
+        description: "page size"
+        type: "integer"
+        format: "int32"
+      number:
+        description: "current page"
+        type: "integer"
+        format: "int32"
 
   UnauthorizedError:
     description: "User is not authenticated"
