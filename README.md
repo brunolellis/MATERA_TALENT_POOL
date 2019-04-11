@@ -29,6 +29,31 @@ Response:
 
     curl -v http://localhost:8080/api/v1/employees
 
+#### retrieving all employees with pagination
+
+first page: 
+
+    curl -v http://localhost:8080/api/v1/employees\?size\=5\&page\=0
+
+second page: 
+
+    curl -v http://localhost:8080/api/v1/employees\?size\=5\&page\=1
+
+Note: 
+- `size` represents how many items will be returned on each page - default: 20
+- `page` starts from 0 and should be incremented on each page
+
+#### retrieving all employees with pagination and sorting
+
+sort by id descending: 
+
+    curl -v http://localhost:8080/api/v1/employees\?size\=20\&page\=0\&sort\=id,desc
+
+sort by dateOfBirth and then by dateOfEmployment: 
+
+    curl -v http://localhost:8080/api/v1/employees\?size\=20\&page\=0\&sort\=dateOfBirth,asc\&sort\=dateOfEmployment,asc
+
+
 #### retrieving one employee
 
     curl -v http://localhost:8080/api/v1/employees/1

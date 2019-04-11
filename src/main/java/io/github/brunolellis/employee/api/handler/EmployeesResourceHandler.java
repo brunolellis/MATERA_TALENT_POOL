@@ -5,6 +5,9 @@ import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import io.github.brunolellis.employee.api.EmployeeRequest;
@@ -30,12 +33,13 @@ public class EmployeesResourceHandler {
 		return response;
 	}
 
-	public List<EmployeeResponse> findAllEmployees() {
-		List<EmployeeResponse> employees = service.findAll().stream()
+	public Page<EmployeeResponse> findAllEmployees(Pageable pagination) {
+		Page<Employee> employees = service.findAll(pagination);
+		List<EmployeeResponse> response = employees.stream()
 				.map(this::convertToResponse)
 				.collect(Collectors.toList());
 		
-		return employees;
+		return new PageImpl<EmployeeResponse>(response, pagination, employees.getTotalElements());
 	}
 	
 	public EmployeeResponse create(EmployeeRequest request) {

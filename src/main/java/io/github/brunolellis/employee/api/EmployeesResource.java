@@ -1,9 +1,9 @@
 package io.github.brunolellis.employee.api;
 
-import java.util.List;
-
 import javax.validation.Valid;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -28,8 +28,8 @@ public class EmployeesResource {
 	}
 
 	@GetMapping
-	public ResponseEntity<List<EmployeeResponse>> findAll() {
-		List<EmployeeResponse> response = apiHandler.findAllEmployees();
+	public ResponseEntity<Page<EmployeeResponse>> findAll(Pageable pagination) {
+		Page<EmployeeResponse> response = apiHandler.findAllEmployees(pagination);
 		return ResponseEntity.ok(response);
 	}
 
