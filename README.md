@@ -11,6 +11,31 @@ Employee API definition can be found [here](src/main/resources/static/swagger.ym
 Please, copy and paste the definition on [Swagger Editor](https://editor.swagger.io/) for better visualization.
 
 
+## docker-compose: how to run
+
+There are 2 docker containers: one responsible to start the api, using java 8 and spring (port 8080); and another one responsible for storing data using MySQL (port 3306). They should be started together: using `docker-compose`.
+
+Let's create our artifact `employees-api.jar` running: 
+
+    mvn clean package
+
+Now to start our environment:
+
+    docker-compose up
+
+To stop the whole environment, either press `Ctrl+C` or run: 
+
+    docker-compose stop
+
+To start everything again: 
+
+    docker-compose start
+
+To remove everything:
+
+    docker-compose down
+
+
 ## REST operations using curl
 
 #### creating an employee
@@ -67,5 +92,4 @@ sort by dateOfBirth and then by dateOfEmployment:
 #### ~~deleting~~ disabling employee
 
     curl -v -X DELETE http://localhost:8080/api/v1/employees/1
-
 
