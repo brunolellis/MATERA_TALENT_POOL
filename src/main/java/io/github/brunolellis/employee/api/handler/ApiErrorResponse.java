@@ -13,13 +13,13 @@ public class ApiErrorResponse {
 
 	private List<ApiErrorDetail> errors = new ArrayList<>();
 
-	public ApiErrorResponse(String... messages) {
+	public ApiErrorResponse(final String... messages) {
 		this.errors = Stream.of(messages)
 				.map(msg -> new ApiErrorDetail(msg))
 				.collect(Collectors.toList());
 	}
 	
-	public ApiErrorResponse(List<String> messages) {
+	public ApiErrorResponse(final List<String> messages) {
 		this.errors = messages.stream()
 				.map(msg -> new ApiErrorDetail(msg))
 				.collect(Collectors.toList());
@@ -31,9 +31,9 @@ public class ApiErrorResponse {
 
 	public static class ApiErrorDetail {
 
-		private String message;
+		private final String message;
 
-		public ApiErrorDetail(String message) {
+		public ApiErrorDetail(final String message) {
 			this.message = message;
 		}
 

@@ -21,43 +21,43 @@ import io.github.brunolellis.employee.domain.EmployeeService;
 @Service
 public class EmployeesResourceHandler {
 
-	private EmployeeService service;
+	private final EmployeeService service;
 
-	public EmployeesResourceHandler(EmployeeService service) {
+	public EmployeesResourceHandler(final EmployeeService service) {
 		this.service = service;
 	}
 
-	public EmployeeResponse findEmployeeById(Long id) {
-		Employee employee = service.findById(id);
-		EmployeeResponse response = convertToResponse(employee);
+	public EmployeeResponse findEmployeeById(final Long id) {
+		final Employee employee = service.findById(id);
+		final EmployeeResponse response = convertToResponse(employee);
 		return response;
 	}
 
-	public Page<EmployeeResponse> findAllEmployees(Pageable pagination) {
-		Page<Employee> employees = service.findAll(pagination);
-		List<EmployeeResponse> response = employees.stream()
+	public Page<EmployeeResponse> findAllEmployees(final Pageable pagination) {
+		final Page<Employee> employees = service.findAll(pagination);
+		final List<EmployeeResponse> response = employees.stream()
 				.map(this::convertToResponse)
 				.collect(Collectors.toList());
 		
 		return new PageImpl<EmployeeResponse>(response, pagination, employees.getTotalElements());
 	}
 	
-	public EmployeeResponse create(EmployeeRequest request) {
-		Employee employee = convertToEmployee(request);
-		Employee newEmployee = service.create(employee);
+	public EmployeeResponse create(final EmployeeRequest request) {
+		final Employee employee = convertToEmployee(request);
+		final Employee newEmployee = service.create(employee);
 		return convertToResponse(newEmployee);
 	}
 
-	public void update(Long id, @Valid EmployeeRequest request) {
-		Employee employee = convertToEmployee(request);
+	public void update(final Long id, @Valid final EmployeeRequest request) {
+		final Employee employee = convertToEmployee(request);
 		service.update(id, employee);
 	}
 
-	public void delete(Long id) {
+	public void delete(final Long id) {
 		service.delete(id);
 	}
 	
-	private Employee convertToEmployee(EmployeeRequest request) {
+	private Employee convertToEmployee(final EmployeeRequest request) {
 		return new Employee.Builder()
 				.dateOfBirth(request.getDateOfBirth())
 				.dateOfEmployment(request.getDateOfEmployment())
@@ -67,7 +67,7 @@ public class EmployeesResourceHandler {
 				.build();
 	}
 	
-	private EmployeeResponse convertToResponse(Employee e) {
+	private EmployeeResponse convertToResponse(final Employee e) {
 		return new EmployeeResponse.Builder()
 				.dateOfBirth(e.getDateOfBirth())
 				.dateOfEmployment(e.getDateOfEmployment())

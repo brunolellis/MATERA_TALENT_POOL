@@ -40,7 +40,7 @@ public class Employee {
 	@Column(name = "STATUS", nullable = false)
 	private EmployeeStatus status = EmployeeStatus.ACTIVE;
 
-	public void setId(Long id) {
+	public void setId(final Long id) {
 		this.id = id;
 	}
 
@@ -95,33 +95,33 @@ public class Employee {
 		private LocalDate dateOfEmployment;
 		// 'status' should not be exposed
 
-		public Builder firstName(String firstName) {
+		public Builder firstName(final String firstName) {
 			this.firstName = firstName;
 			return this;
 		}
 
-		public Builder middleInitial(String middleInitial) {
+		public Builder middleInitial(final String middleInitial) {
 			this.middleInitial = middleInitial;
 			return this;
 		}
 
-		public Builder lastName(String lastName) {
+		public Builder lastName(final String lastName) {
 			this.lastName = lastName;
 			return this;
 		}
 
-		public Builder dateOfBirth(LocalDate dateOfBirth) {
+		public Builder dateOfBirth(final LocalDate dateOfBirth) {
 			this.dateOfBirth = dateOfBirth;
 			return this;
 		}
 
-		public Builder dateOfEmployment(LocalDate dateOfEmployment) {
+		public Builder dateOfEmployment(final LocalDate dateOfEmployment) {
 			this.dateOfEmployment = dateOfEmployment;
 			return this;
 		}
 
 		public Employee build() {
-			Employee employee = new Employee();
+			final Employee employee = new Employee();
 			employee.firstName = firstName;
 			employee.middleInitial = middleInitial;
 			employee.lastName = lastName;
@@ -145,14 +145,14 @@ public class Employee {
 	}
 
 	@Override
-	public boolean equals(Object obj) {
+	public boolean equals(final Object obj) {
 		if (this == obj)
 			return true;
 		if (obj == null)
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Employee other = (Employee) obj;
+		final Employee other = (Employee) obj;
 		return Objects.equals(dateOfBirth, other.dateOfBirth)
 				&& Objects.equals(dateOfEmployment, other.dateOfEmployment)
 				&& Objects.equals(firstName, other.firstName) && Objects.equals(id, other.id)

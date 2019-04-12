@@ -44,7 +44,7 @@ public class ChangeEmployeesResourceTest extends AbstractTests {
     
     @Test
     public void givenAValidEmployeeShouldReturn201() throws Exception {
-        Employee employee = employeeBuilder()
+        final Employee employee = employeeBuilder()
         		.build();
         
         mockMvc.perform(
@@ -63,7 +63,7 @@ public class ChangeEmployeesResourceTest extends AbstractTests {
 
     @Test
     public void givenAnInvalidMiddleInitialNameFieldsShouldReturn400() throws Exception {
-        Employee employee = employeeBuilder()
+        final Employee employee = employeeBuilder()
         		.middleInitial("INVALID MIDDLE INITIAL")
         		.build();
         
@@ -78,7 +78,7 @@ public class ChangeEmployeesResourceTest extends AbstractTests {
 	
     @Test
     public void givenAnInvalidEmployeeWithMissingRequiredFieldsShouldReturn400() throws Exception {
-        Employee employee = employeeBuilder()
+        final Employee employee = employeeBuilder()
         		.dateOfBirth(null)
         		.build();
         
@@ -128,7 +128,7 @@ public class ChangeEmployeesResourceTest extends AbstractTests {
         assertEquals(EmployeeStatus.INACTIVE, employee.getStatus());
         
         // then
-        Employee jane = employeeBuilder()
+        final Employee jane = employeeBuilder()
         		.firstName("Jane")
         		.build();
         

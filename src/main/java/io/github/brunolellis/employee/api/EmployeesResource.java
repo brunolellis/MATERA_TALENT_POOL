@@ -22,40 +22,40 @@ import io.github.brunolellis.employee.api.handler.EmployeesResourceHandler;
 @RequestMapping("/api/v1/employees")
 public class EmployeesResource {
 
-	private EmployeesResourceHandler apiHandler;
+	private final EmployeesResourceHandler apiHandler;
 
-	public EmployeesResource(EmployeesResourceHandler apiHandler) {
+	public EmployeesResource(final EmployeesResourceHandler apiHandler) {
 		this.apiHandler = apiHandler;
 	}
 
 	@GetMapping
-	public ResponseEntity<Page<EmployeeResponse>> findAll(Pageable pagination) {
-		Page<EmployeeResponse> response = apiHandler.findAllEmployees(pagination);
+	public ResponseEntity<Page<EmployeeResponse>> findAll(final Pageable pagination) {
+		final Page<EmployeeResponse> response = apiHandler.findAllEmployees(pagination);
 		return ResponseEntity.ok(response);
 	}
 
 	@PostMapping
-	public ResponseEntity<EmployeeResponse> create(@Valid @RequestBody EmployeeRequest newEmployee) {
-		EmployeeResponse response = apiHandler.create(newEmployee);
+	public ResponseEntity<EmployeeResponse> create(@Valid @RequestBody final EmployeeRequest newEmployee) {
+		final EmployeeResponse response = apiHandler.create(newEmployee);
 		return ResponseEntity.status(HttpStatus.CREATED)
 				.body(response);
 	}
 
 	@GetMapping("/{id}")
-	public ResponseEntity<EmployeeResponse> findById(@PathVariable("id") Long id) {
-		EmployeeResponse response = apiHandler.findEmployeeById(id);
+	public ResponseEntity<EmployeeResponse> findById(@PathVariable("id") final Long id) {
+		final EmployeeResponse response = apiHandler.findEmployeeById(id);
 		return ResponseEntity.ok(response);
 	}
 
 	@PutMapping("/{id}")
-	public ResponseEntity<Void> update(@PathVariable("id") Long id, @Valid @RequestBody EmployeeRequest employee) {
+	public ResponseEntity<Void> update(@PathVariable("id") final Long id, @Valid @RequestBody final EmployeeRequest employee) {
 		apiHandler.update(id, employee);
 		return ResponseEntity.noContent().build();
 	}
 
 	@DeleteMapping("/{id}")
 	@RolesAllowed("ADMIN")
-	public ResponseEntity<Void> delete(@PathVariable("id") Long id) {
+	public ResponseEntity<Void> delete(@PathVariable("id") final Long id) {
 		apiHandler.delete(id);
 		return ResponseEntity.noContent().build();
 	}

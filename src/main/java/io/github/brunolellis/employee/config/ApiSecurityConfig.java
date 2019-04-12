@@ -15,19 +15,19 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 public class ApiSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	// matera
-    private static final String SECRET_PASSWORD = "$2a$04$HUTL8U5pwFNJVk7GnIPQR.hJf5gCV2Ov0n.OJeLRfMBOyi/8IuNG6";
+    private static final String SECRET = "$2a$04$HUTL8U5pwFNJVk7GnIPQR.hJf5gCV2Ov0n.OJeLRfMBOyi/8IuNG6";
 
 	@Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+    protected void configure(final AuthenticationManagerBuilder auth) throws Exception {
         auth.inMemoryAuthentication()
         	.passwordEncoder(passwordEncoder())
         	.withUser("matera")
-        	.password(SECRET_PASSWORD)
+        	.password(SECRET)
         	.roles("ADMIN");
     }
 
     @Override
-    protected void configure(HttpSecurity http) throws Exception {
+    protected void configure(final HttpSecurity http) throws Exception {
         http.httpBasic()
         		.realmName("employee-api")
         		.and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)

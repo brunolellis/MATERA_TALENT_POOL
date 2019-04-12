@@ -32,7 +32,7 @@ public class EmployeeRequest {
 		return firstName;
 	}
 
-	public void setFirstName(String firstName) {
+	public void setFirstName(final String firstName) {
 		this.firstName = firstName;
 	}
 
@@ -40,7 +40,7 @@ public class EmployeeRequest {
 		return middleInitial;
 	}
 
-	public void setMiddleInitial(String middleInitial) {
+	public void setMiddleInitial(final String middleInitial) {
 		this.middleInitial = middleInitial;
 	}
 
@@ -48,7 +48,7 @@ public class EmployeeRequest {
 		return lastName;
 	}
 
-	public void setLastName(String lastName) {
+	public void setLastName(final String lastName) {
 		this.lastName = lastName;
 	}
 
@@ -56,7 +56,7 @@ public class EmployeeRequest {
 		return dateOfBirth;
 	}
 
-	public void setDateOfBirth(LocalDate dateOfBirth) {
+	public void setDateOfBirth(final LocalDate dateOfBirth) {
 		this.dateOfBirth = dateOfBirth;
 	}
 
@@ -64,7 +64,7 @@ public class EmployeeRequest {
 		return dateOfEmployment;
 	}
 
-	public void setDateOfEmployment(LocalDate dateOfEmployment) {
+	public void setDateOfEmployment(final LocalDate dateOfEmployment) {
 		this.dateOfEmployment = dateOfEmployment;
 	}
 

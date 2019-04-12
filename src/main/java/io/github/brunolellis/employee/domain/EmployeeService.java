@@ -12,9 +12,9 @@ import io.github.brunolellis.employee.repository.EmployeeRepository;
 @Transactional(readOnly = true)
 public class EmployeeService {
 
-	private EmployeeRepository repository;
+	private final EmployeeRepository repository;
 
-	public EmployeeService(EmployeeRepository repository) {
+	public EmployeeService(final EmployeeRepository repository) {
 		this.repository = repository;
 	}
 
@@ -25,12 +25,12 @@ public class EmployeeService {
 	 * @return
 	 * @throws EmployeeNotFoundException in case it does not exist (or maybe because it was previously disabled) 
 	 */
-	public Employee findById(Long id) throws EmployeeNotFoundException {
+	public Employee findById(final Long id) throws EmployeeNotFoundException {
 		return repository.findByIdAndStatus(id, EmployeeStatus.ACTIVE)
 				.orElseThrow(() -> new EmployeeNotFoundException(id));
 	}
 
-	public Page<Employee> findAll(Pageable pagination) {
+	public Page<Employee> findAll(final Pageable pagination) {
 		return repository.findAllByStatus(EmployeeStatus.ACTIVE, pagination);
 	}
 
@@ -41,8 +41,8 @@ public class EmployeeService {
 	 * @throws EmployeeNotFoundException
 	 */
 	@Transactional(readOnly = false)
-	public void delete(Long id) throws EmployeeNotFoundException {
-		Employee employee = findById(id);
+	public void delete(final Long id) throws EmployeeNotFoundException {
+		final Employee employee = findById(id);
 
 		employee.disable();
 		repository.save(employee);
@@ -55,7 +55,7 @@ public class EmployeeService {
 	 * @return
 	 */
 	@Transactional(readOnly = false)
-	public Employee create(Employee employee) {
+	public Employee create(final Employee employee) {
 		employee.enable();
 		return repository.save(employee);
 	}
@@ -69,8 +69,8 @@ public class EmployeeService {
 	 * @throws EmployeeNotFoundException
 	 */
 	@Transactional(readOnly = false)
-	public void update(Long id, Employee employee) throws EmployeeNotFoundException {
-		Employee updatingEmployee = findById(id);
+	public void update(final Long id, final Employee employee) throws EmployeeNotFoundException {
+		final Employee updatingEmployee = findById(id);
 		
 		employee.setId(updatingEmployee.getId());
 		employee.enable();

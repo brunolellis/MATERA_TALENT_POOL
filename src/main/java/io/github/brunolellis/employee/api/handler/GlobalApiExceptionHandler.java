@@ -18,26 +18,26 @@ import io.github.brunolellis.employee.exception.EmployeeNotFoundException;
 public class GlobalApiExceptionHandler extends ResponseEntityExceptionHandler {
 
 	@ExceptionHandler(EmployeeNotFoundException.class)
-	public ResponseEntity<ApiErrorResponse> handleEmployeeNotFound(EmployeeNotFoundException exception) {
-		ApiErrorResponse response = new ApiErrorResponse(exception.getMessage());
+	public ResponseEntity<ApiErrorResponse> handleEmployeeNotFound(final EmployeeNotFoundException exception) {
+		final ApiErrorResponse response = new ApiErrorResponse(exception.getMessage());
 		return new ResponseEntity<ApiErrorResponse>(response, HttpStatus.NOT_FOUND);
 	}
 
 	@Override
-	protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException exception,
-			HttpHeaders headers, HttpStatus status, WebRequest request) {
+	protected ResponseEntity<Object> handleMethodArgumentNotValid(final MethodArgumentNotValidException exception,
+			final HttpHeaders headers, final HttpStatus status, final WebRequest request) {
 		
-		List<String> messages = exception.getBindingResult().getFieldErrors().stream()
+		final List<String> messages = exception.getBindingResult().getFieldErrors().stream()
 			.map(e -> String.format("Field '%s': %s", e.getField(), e.getDefaultMessage()))
 			.collect(Collectors.toList());
 		
-		ApiErrorResponse response = new ApiErrorResponse(messages);
+		final ApiErrorResponse response = new ApiErrorResponse(messages);
 		return new ResponseEntity<>(response, headers, status);
 	}
 
 	@ExceptionHandler(Exception.class)
-	public ResponseEntity<ApiErrorResponse> handle(Exception exception) {
-		ApiErrorResponse response = new ApiErrorResponse(exception.getClass().getName() + ": " + exception.getMessage());
+	public ResponseEntity<ApiErrorResponse> handle(final Exception exception) {
+		final ApiErrorResponse response = new ApiErrorResponse(exception.getClass().getName() + ": " + exception.getMessage());
 		return new ResponseEntity<ApiErrorResponse>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 

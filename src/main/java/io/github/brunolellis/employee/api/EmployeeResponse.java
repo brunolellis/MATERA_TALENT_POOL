@@ -17,9 +17,9 @@ public class EmployeeResponse {
 
 		private String value;
 
-		public static StatusEnum fromValue(String text) {
-			for (StatusEnum b : StatusEnum.values()) {
-				if (b.value == text) {
+		public static StatusEnum fromValue(final String text) {
+			for (final StatusEnum b : StatusEnum.values()) {
+				if (b.value.equals(text)) {
 					return b;
 				}
 			}
@@ -71,48 +71,48 @@ public class EmployeeResponse {
 		private LocalDate dateOfEmployment;
 		private StatusEnum status;
 
-		public Builder id(Long id) {
+		public Builder id(final Long id) {
 			this.id = id;
 			return this;
 		}
 
-		public Builder firstName(String firstName) {
+		public Builder firstName(final String firstName) {
 			this.firstName = firstName;
 			return this;
 		}
 
-		public Builder middleInitial(String middleInitial) {
+		public Builder middleInitial(final String middleInitial) {
 			this.middleInitial = middleInitial;
 			return this;
 		}
 
-		public Builder lastName(String lastName) {
+		public Builder lastName(final String lastName) {
 			this.lastName = lastName;
 			return this;
 		}
 
-		public Builder dateOfBirth(LocalDate dateOfBirth) {
+		public Builder dateOfBirth(final LocalDate dateOfBirth) {
 			this.dateOfBirth = dateOfBirth;
 			return this;
 		}
 
-		public Builder dateOfEmployment(LocalDate dateOfEmployment) {
+		public Builder dateOfEmployment(final LocalDate dateOfEmployment) {
 			this.dateOfEmployment = dateOfEmployment;
 			return this;
 		}
 
-		public Builder status(StatusEnum status) {
+		public Builder status(final StatusEnum status) {
 			this.status = status;
 			return this;
 		}
 		
-		public Builder status(String status) {
+		public Builder status(final String status) {
 			this.status = StatusEnum.fromValue(status);
 			return this;
 		}
 
 		public EmployeeResponse build() {
-			EmployeeResponse employeeResponse = new EmployeeResponse();
+			final EmployeeResponse employeeResponse = new EmployeeResponse();
 			employeeResponse.id = id;
 			employeeResponse.firstName = firstName;
 			employeeResponse.middleInitial = middleInitial;
