@@ -92,5 +92,10 @@ sort by dateOfBirth and then by dateOfEmployment:
 
 #### ~~deleting~~ disabling employee
 
-    curl -v -X DELETE http://localhost:8080/api/v1/employees/1
+    curl -v -u matera:matera -X DELETE http://localhost:8080/api/v1/employees/1
 
+Note: endpoint protected with simple authentication - user and password is `matera`.
+
+## Basic access authentication
+
+HTTP Basic authentication was choosed for the sake of simplicity. It is **not** recommended for production. Recommended options could be JWT or OAuth with Spring Security.

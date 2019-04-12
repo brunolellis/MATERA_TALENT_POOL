@@ -1,9 +1,14 @@
 package io.github.brunolellis.employee;
 
-import static org.hamcrest.Matchers.*;
+import static org.hamcrest.Matchers.greaterThan;
+import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.nullValue;
 import static org.junit.Assert.assertEquals;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import java.time.LocalDate;
 
@@ -14,12 +19,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
 import io.github.brunolellis.employee.domain.Employee;
-import io.github.brunolellis.employee.domain.EmployeeStatus;
 import io.github.brunolellis.employee.domain.Employee.Builder;
+import io.github.brunolellis.employee.domain.EmployeeStatus;
 import io.github.brunolellis.employee.repository.EmployeeRepository;
 
 @SpringBootTest
@@ -109,6 +115,7 @@ public class ChangeEmployeesResourceTest extends AbstractTests {
     }
     
     @Test
+    @WithMockUser("matera")
     public void givenADeletedEmployeeShouldDisableIt() throws Exception {
         Employee employee = employeeBuilder().build();
         employee = repository.save(employee);
@@ -120,6 +127,17 @@ public class ChangeEmployeesResourceTest extends AbstractTests {
         
         employee = repository.findById(employee.getId()).get();
         assertEquals(EmployeeStatus.INACTIVE, employee.getStatus());
+    }
+    
+    @Test
+    public void givenAnUnauthenticatedRequestShouldReturn401() throws Exception {
+        Employee employee = employeeBuilder().build();
+        employee = repository.save(employee);
+        
+        mockMvc.perform(
+                delete("/api/v1/employees/{id}", employee.getId()))
+                .andExpect(status().is(401))
+                .andExpect(jsonPath("$").doesNotExist());
     }
     
 	private Builder employeeBuilder() {

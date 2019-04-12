@@ -1,5 +1,6 @@
 package io.github.brunolellis.employee.api;
 
+import javax.annotation.security.RolesAllowed;
 import javax.validation.Valid;
 
 import org.springframework.data.domain.Page;
@@ -53,6 +54,7 @@ public class EmployeesResource {
 	}
 
 	@DeleteMapping("/{id}")
+	@RolesAllowed("ADMIN")
 	public ResponseEntity<Void> delete(@PathVariable("id") Long id) {
 		apiHandler.delete(id);
 		return ResponseEntity.noContent().build();
