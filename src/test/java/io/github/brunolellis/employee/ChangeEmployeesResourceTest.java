@@ -1,8 +1,6 @@
 package io.github.brunolellis.employee;
 
-import static org.hamcrest.Matchers.greaterThan;
-import static org.hamcrest.Matchers.is;
-import static org.hamcrest.Matchers.nullValue;
+import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.assertEquals;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -112,6 +110,35 @@ public class ChangeEmployeesResourceTest extends AbstractTests {
         
         jane = repository.findById(employee.getId()).get();
         assertEquals("Jane", jane.getFirstName());
+    }
+    
+    @Test
+    @WithMockUser("matera")
+    public void givenAnInactiveEmployeeThenAnUpdateAttemptShouldReturn404() throws Exception {
+        // given
+    	Employee employee = employeeBuilder().build();
+        employee = repository.save(employee);
+        
+        mockMvc.perform(
+                delete("/api/v1/employees/{id}", employee.getId()))
+                .andExpect(status().is(204))
+                .andExpect(jsonPath("$").doesNotExist());
+        
+        employee = repository.findById(employee.getId()).get();
+        assertEquals(EmployeeStatus.INACTIVE, employee.getStatus());
+        
+        // then
+        Employee jane = employeeBuilder()
+        		.firstName("Jane")
+        		.build();
+        
+        mockMvc.perform(
+                put("/api/v1/employees/{id}", employee.getId())
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(asJsonString(jane)))
+                .andExpect(status().is(404))
+                .andExpect(jsonPath("$.errors.length()", is(1)))
+                .andExpect(jsonPath("$.errors[0].message", is("Employee " + employee.getId() + " not found")));
     }
     
     @Test

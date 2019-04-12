@@ -70,12 +70,9 @@ public class EmployeeService {
 	 */
 	@Transactional(readOnly = false)
 	public void update(Long id, Employee employee) throws EmployeeNotFoundException {
-		boolean doesNotExist = !repository.existsById(id);
-		if (doesNotExist) {
-			throw new EmployeeNotFoundException(id);
-		}
+		Employee updatingEmployee = findById(id);
 		
-		employee.setId(id);
+		employee.setId(updatingEmployee.getId());
 		employee.enable();
 		repository.save(employee);
 	}
