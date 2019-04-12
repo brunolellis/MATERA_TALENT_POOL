@@ -74,7 +74,6 @@ public class EmployeesResourceHandler {
 				.id(e.getId())
 				.lastName(e.getLastName())
 				.middleInitial(e.getMiddleInitial())
-				.status(e.getStatus().toString())
 				.build();
 	}
 

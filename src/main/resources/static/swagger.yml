@@ -178,7 +178,6 @@ definitions:
       - "lastName"
       - "dateOfBirth"
       - "dateOfEmployment"
-      - "status"
     properties:
       id:
         type: "integer"
@@ -198,12 +197,6 @@ definitions:
       dateOfEmployment:
         type: "string"
         format: "date"
-      status:
-        type: "string"
-        description: "Employment status"
-        enum:
-        - "ACTIVE"
-        - "INACTIVE"
 
   EmployeePageableResponse:
     type: "object"

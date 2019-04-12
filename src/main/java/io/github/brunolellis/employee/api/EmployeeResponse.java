@@ -10,22 +10,6 @@ public class EmployeeResponse {
 	private String lastName;
 	private LocalDate dateOfBirth;
 	private LocalDate dateOfEmployment;
-	private StatusEnum status;
-
-	public enum StatusEnum {
-		ACTIVE, INACTIVE;
-
-		private String value;
-
-		public static StatusEnum fromValue(final String text) {
-			for (final StatusEnum b : StatusEnum.values()) {
-				if (b.value.equals(text)) {
-					return b;
-				}
-			}
-			return null;
-		}
-	}
 
 	public Long getId() {
 		return id;
@@ -51,15 +35,11 @@ public class EmployeeResponse {
 		return dateOfEmployment;
 	}
 
-	public StatusEnum getStatus() {
-		return status;
-	}
-
 	@Override
 	public String toString() {
 		return "EmployeeResponse [id=" + id + ", firstName=" + firstName + ", middleInitial=" + middleInitial
 				+ ", lastName=" + lastName + ", dateOfBirth=" + dateOfBirth + ", dateOfEmployment=" + dateOfEmployment
-				+ ", status=" + status + "]";
+				+ "]";
 	}
 
 	public static class Builder {
@@ -69,7 +49,6 @@ public class EmployeeResponse {
 		private String lastName;
 		private LocalDate dateOfBirth;
 		private LocalDate dateOfEmployment;
-		private StatusEnum status;
 
 		public Builder id(final Long id) {
 			this.id = id;
@@ -101,16 +80,6 @@ public class EmployeeResponse {
 			return this;
 		}
 
-		public Builder status(final StatusEnum status) {
-			this.status = status;
-			return this;
-		}
-		
-		public Builder status(final String status) {
-			this.status = StatusEnum.fromValue(status);
-			return this;
-		}
-
 		public EmployeeResponse build() {
 			final EmployeeResponse employeeResponse = new EmployeeResponse();
 			employeeResponse.id = id;
@@ -119,7 +88,6 @@ public class EmployeeResponse {
 			employeeResponse.lastName = lastName;
 			employeeResponse.dateOfBirth = dateOfBirth;
 			employeeResponse.dateOfEmployment = dateOfEmployment;
-			employeeResponse.status = status;
 			return employeeResponse;
 		}
 

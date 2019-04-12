@@ -3,6 +3,8 @@ package io.github.brunolellis.employee.api.handler;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +18,8 @@ import io.github.brunolellis.employee.exception.EmployeeNotFoundException;
 
 @ControllerAdvice
 public class GlobalApiExceptionHandler extends ResponseEntityExceptionHandler {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(GlobalApiExceptionHandler.class);
 
 	@ExceptionHandler(EmployeeNotFoundException.class)
 	public ResponseEntity<ApiErrorResponse> handleEmployeeNotFound(final EmployeeNotFoundException exception) {
@@ -37,6 +41,8 @@ public class GlobalApiExceptionHandler extends ResponseEntityExceptionHandler {
 
 	@ExceptionHandler(Exception.class)
 	public ResponseEntity<ApiErrorResponse> handle(final Exception exception) {
+		LOGGER.error("Unexpected exception caught", exception);
+
 		final ApiErrorResponse response = new ApiErrorResponse(exception.getClass().getName() + ": " + exception.getMessage());
 		return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 	}
