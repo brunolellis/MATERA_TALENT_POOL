@@ -30,6 +30,10 @@ paths:
           description: "Employee has been created successfully"
           schema:
             $ref: "#/definitions/EmployeeResponse"
+        400:
+          description: "Validation error(s)"
+          schema:
+            $ref: "#/definitions/ApiErrorResponse"
 
     get:
       tags:
@@ -254,3 +258,17 @@ definitions:
 
   UnauthorizedError:
     description: "User is not authenticated"
+
+  ApiErrorResponse:
+    description: "Errors might occur"
+    type: "object"
+    properties:
+      errors:
+        type: "array"
+        items:
+          type: object
+          properties:
+            message: 
+              description: "Some more details"
+              type: "string"
+    
