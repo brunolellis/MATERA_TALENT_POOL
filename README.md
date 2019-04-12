@@ -98,4 +98,4 @@ Note: endpoint protected with simple authentication - user and password is `mate
 
 ## Basic access authentication
 
-HTTP Basic authentication was choosed for the sake of simplicity. It is **not** recommended for production. Recommended options could be JWT or OAuth with Spring Security.
+HTTP Basic authentication was chosen for the sake of simplicity. It is **not** recommended for production. Recommended options could be JWT or OAuth with Spring Security.
