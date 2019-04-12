@@ -29,8 +29,7 @@ public class EmployeesResourceHandler {
 
 	public EmployeeResponse findEmployeeById(final Long id) {
 		final Employee employee = service.findById(id);
-		final EmployeeResponse response = convertToResponse(employee);
-		return response;
+		return convertToResponse(employee);
 	}
 
 	public Page<EmployeeResponse> findAllEmployees(final Pageable pagination) {
@@ -39,7 +38,7 @@ public class EmployeesResourceHandler {
 				.map(this::convertToResponse)
 				.collect(Collectors.toList());
 		
-		return new PageImpl<EmployeeResponse>(response, pagination, employees.getTotalElements());
+		return new PageImpl<>(response, pagination, employees.getTotalElements());
 	}
 	
 	public EmployeeResponse create(final EmployeeRequest request) {

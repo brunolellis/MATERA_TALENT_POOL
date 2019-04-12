@@ -20,7 +20,7 @@ public class GlobalApiExceptionHandler extends ResponseEntityExceptionHandler {
 	@ExceptionHandler(EmployeeNotFoundException.class)
 	public ResponseEntity<ApiErrorResponse> handleEmployeeNotFound(final EmployeeNotFoundException exception) {
 		final ApiErrorResponse response = new ApiErrorResponse(exception.getMessage());
-		return new ResponseEntity<ApiErrorResponse>(response, HttpStatus.NOT_FOUND);
+		return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
 	}
 
 	@Override
@@ -38,7 +38,7 @@ public class GlobalApiExceptionHandler extends ResponseEntityExceptionHandler {
 	@ExceptionHandler(Exception.class)
 	public ResponseEntity<ApiErrorResponse> handle(final Exception exception) {
 		final ApiErrorResponse response = new ApiErrorResponse(exception.getClass().getName() + ": " + exception.getMessage());
-		return new ResponseEntity<ApiErrorResponse>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+		return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 
 }

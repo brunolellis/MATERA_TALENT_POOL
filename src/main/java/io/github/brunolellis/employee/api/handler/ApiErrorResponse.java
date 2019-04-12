@@ -15,13 +15,13 @@ public class ApiErrorResponse {
 
 	public ApiErrorResponse(final String... messages) {
 		this.errors = Stream.of(messages)
-				.map(msg -> new ApiErrorDetail(msg))
+				.map(ApiErrorDetail::new)
 				.collect(Collectors.toList());
 	}
 	
 	public ApiErrorResponse(final List<String> messages) {
 		this.errors = messages.stream()
-				.map(msg -> new ApiErrorDetail(msg))
+				.map(ApiErrorDetail::new)
 				.collect(Collectors.toList());
 	}
 
